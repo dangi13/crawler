@@ -24,10 +24,10 @@ jobs:
           jq '.["repo_A"] = {"hello": "bye"}' manifests/dev.json > manifests/dev.json.tmp
           mv manifests/dev.json.tmp manifests/dev.json
 
-      -name: Clear Git credentials cache
-       run: |
-         git config --unset credential.helper
-        
+      - name: Clear Git credentials cache
+        run: |
+          git config --unset credential.helper
+          
       - name: Commit and push changes
         run: |
           git config user.name "GitHub Actions"
