@@ -16,7 +16,7 @@ jobs:
           repository: dangi13/releases 
           ref: main
           persist-credentials: true 
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PAT }}
 
       - name: Update dev.json
         run: |
