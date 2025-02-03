@@ -1,18 +1,31 @@
-name: Docker Image CI
+name: Update dev.json
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
-
-  build:
-
+  update_manifest:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      - name: Checkout releases repo
+        uses: actions/checkout@v3
+        with:
+          repository: dangi13/releases 
+          ref: main
+          persist-credentials: false 
+          keyfile: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update dev.json
+        run: |
+          jq '.["repo_A"] = {"hello": "bye"}' manifests/dev.json > manifests/dev.json.tmp
+          mv manifests/dev.json.tmp manifests/dev.json
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "github-actions@github.com"
+          git add manifests/dev.json
+          git commit -m "Update repo_A data in dev.json"
+          git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
