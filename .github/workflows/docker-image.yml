@@ -8,6 +8,19 @@ on:
 jobs:
   update_manifest:
     runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      checks: read
+      contents: write
+      deployments: read
+      issues: read
+      discussions: read
+      packages: read
+      pages: read
+      pull-requests: read
+      repository-projects: read
+      security-events: read
+      statuses: read
     steps:
       - name: Checkout releases repo
         uses: actions/checkout@v3
