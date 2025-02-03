@@ -4,23 +4,11 @@ on:
   push:
     branches:
       - main 
+permissions: write-all
 
 jobs:
   update_manifest:
     runs-on: ubuntu-latest
-    permissions:
-      actions: write
-      checks: write
-      contents: write
-      deployments: write
-      issues: write
-      discussions: write
-      packages: write
-      pages: write
-      pull-requests: write
-      repository-projects: write
-      security-events: write
-      statuses: write
     steps:
       - name: Checkout releases repo
         uses: actions/checkout@v3
