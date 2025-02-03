@@ -9,9 +9,7 @@ jobs:
   update_manifest:
     runs-on: ubuntu-latest
     permissions:
-      id-token: write
       contents: write
-      deployments: write
     steps:
       - name: Checkout releases repo
         uses: actions/checkout@v3
@@ -23,7 +21,7 @@ jobs:
 
       - name: Update dev.json
         run: |
-          jq '.["repo_A"] = {"hello": "bye"}' manifests/dev.json > manifests/dev.json.tmp
+          jq '.["repo_A"] = {"hellos": "bye"}' manifests/dev.json > manifests/dev.json.tmp
           mv manifests/dev.json.tmp manifests/dev.json
 
       - name: Commit and push changes
